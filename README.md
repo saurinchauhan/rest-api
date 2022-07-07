@@ -3,8 +3,8 @@
 - API 🐙
     - [x] Read
     - [x] Create
-    - [ ] Update
-    - [ ] Delete
+    - [x] Update
+    - [x] Delete
 - [x] API Docs
 - [ ] Exception Handling
 - [ ] AOP
@@ -12,3 +12,7 @@
 - Test Cases
     - [ ] jUnit
     - [ ] MockMvc
+- [ ] Eureka
+- [ ] Circuit braker [Hystrix]
+- [ ] Ribbon
+- [ ] Zuul/Spring cloud gateway?
