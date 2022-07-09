@@ -8,7 +8,7 @@
 - [x] API Docs
 - [ ] Exception Handling
 - [ ] AOP
-- [ ] Logger
+- [x] Logger
 - Test Cases
     - [ ] jUnit
     - [ ] MockMvc

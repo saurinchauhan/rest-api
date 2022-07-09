@@ -1,6 +1,7 @@
 package com.apis.dto;
 
 import java.util.Date;
+import java.util.Objects;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -65,6 +66,33 @@ public class EmployeeDto {
 	public void setHireDate(Date hireDate) {
 		this.hireDate = hireDate;
 	}
+
+	@Override
+	public String toString() {
+		return "EmployeeDto [birthDate=" + birthDate + ", firstName=" + firstName + ", lastName=" + lastName
+				+ ", gender=" + gender + ", hireDate=" + hireDate + "]";
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(birthDate, firstName, gender, hireDate, lastName);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		EmployeeDto other = (EmployeeDto) obj;
+		return Objects.equals(birthDate, other.birthDate) && Objects.equals(firstName, other.firstName)
+				&& Objects.equals(gender, other.gender) && Objects.equals(hireDate, other.hireDate)
+				&& Objects.equals(lastName, other.lastName);
+	}
+	
+	
 	
 	
 }

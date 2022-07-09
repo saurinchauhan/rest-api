@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
@@ -30,6 +32,8 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 @RestController
 @RequestMapping("/employee")
 public class EmployeeController {
+	
+	final Logger logger = LoggerFactory.getLogger(EmployeeController.class);
 
 	@Autowired
 	private EmployeeRepository employeeRepository;
@@ -46,6 +50,8 @@ public class EmployeeController {
 	@GetMapping("{name}")
 	@ResponseStatus(HttpStatus.OK)
 	public List<EmployeeDto> getEmployeeByName(@PathVariable("name") final String name) {
+		logger.info("Calling EmployeeController.getEmployeeByName :: {}",name);
+		
 		return employeeRepository.findByFirstName(name).stream().map(emp -> modelMapper.map(emp, EmployeeDto.class))
 				.toList();
 	}
