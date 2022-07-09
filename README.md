@@ -12,7 +12,7 @@
 - Test Cases
     - [ ] jUnit
     - [ ] MockMvc
-- [ ] Eureka
+- [x] Eureka
 - [ ] Circuit braker [Hystrix]
 - [ ] Ribbon
 - [ ] Zuul/Spring cloud gateway?
