@@ -7,7 +7,7 @@
     - [x] Delete
 - [x] API Docs
 - [ ] Exception Handling
-- [ ] AOP
+- [x] AOP
 - [x] Logger
 - Test Cases
     - [ ] jUnit
