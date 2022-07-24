@@ -16,3 +16,4 @@
 - [ ] Circuit braker [Hystrix]
 - [ ] Ribbon
 - [ ] Zuul/Spring cloud gateway?
+- [ ] DB Version control flyway or liquibase?
