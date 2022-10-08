@@ -17,3 +17,8 @@
 - [ ] Ribbon
 - [ ] Zuul/Spring cloud gateway?
 - [ ] DB Version control flyway or liquibase?
+- [ ] Keyclock
+- [ ] Kafka
+- [ ] Cassandra
+- [ ] Big data processing or ETL
+- [ ] Dependency injection, add an external jar with differnt DB to redirect API flow
