@@ -10,8 +10,8 @@
 - [x] AOP
 - [x] Logger
 - Test Cases
-    - [ ] jUnit
-    - [ ] MockMvc
+    - [x] jUnit
+    - [x] MockMvc
 - [x] Eureka
 - [ ] Circuit braker [Hystrix]
 - [ ] Ribbon
