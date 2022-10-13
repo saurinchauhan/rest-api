@@ -9,5 +9,5 @@ import com.apis.model.Employee;
 
 public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
 
-Optional<Employee>  findByFirstName(String firstName);
+List<Employee>  findByFirstName(String firstName);
 }

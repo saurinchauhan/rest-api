@@ -24,7 +24,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 	
 	@Override
 	public List<EmployeeDto> findByFirstName(String name) {
-		Optional<Employee> employees = employeeRepository.findByFirstName(name);
+		List<Employee> employees = employeeRepository.findByFirstName(name);
 		return employees.stream().map(emp -> modelMapper.map(emp, EmployeeDto.class))
 				.toList();
 	}
