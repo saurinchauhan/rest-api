@@ -22,3 +22,6 @@
 - [ ] Cassandra
 - [ ] Big data processing or ETL
 - [ ] Dependency injection, add an external jar with differnt DB to redirect API flow
+- [x] Jacoco [ To generate code coverage report ]
+- [x] Surefire [ To generate unit test report ]
+    - Command to generate html report :: " mvn surefire-report:report "
