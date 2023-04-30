@@ -2,6 +2,7 @@ package com.apis.resources;
 
 import java.util.List;
 
+import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.apis.dto.EmployeeDto;
+import com.apis.model.Employee;
 import com.apis.service.EmployeeService;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -30,11 +32,14 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 // @Component
 @RequestMapping("/employee")
 public class EmployeeController {
-	
+
 	final Logger logger = LoggerFactory.getLogger(EmployeeController.class);
 
 	@Autowired
 	private EmployeeService employeeService;
+
+	@Autowired
+	private ModelMapper modelMapper;
 
 	@Operation(summary = "Get list of employees by name")
 	@ApiResponses(value = {
@@ -45,13 +50,15 @@ public class EmployeeController {
 	@GetMapping("{name}")
 	@ResponseStatus(HttpStatus.OK)
 	public List<EmployeeDto> getEmployeeByName(@PathVariable("name") final String name) {
-		logger.info("Calling EmployeeController.getEmployeeByName :: {}",name);
-		List<EmployeeDto> list = employeeService.findByFirstName(name);
+		logger.info("Calling EmployeeController.getEmployeeByName :: {}", name);
+		List<Employee> empList = employeeService.findByFirstName(name);
+		List<EmployeeDto> list = empList.stream().map(emp -> modelMapper.map(emp, EmployeeDto.class))
+				.toList();
 
-		if(list.isEmpty()) {
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Entity not found");
+		if (list.isEmpty()) {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Entity not found");
 		}
-		return  list;
+		return list;
 	}
 
 	@Operation(summary = "Save new Employee details")
@@ -60,7 +67,7 @@ public class EmployeeController {
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public EmployeeDto save(@RequestBody EmployeeDto employeeDto) {
-		return employeeService.save(employeeDto);
+		return modelMapper.map(employeeService.save(modelMapper.map(employeeDto, Employee.class)), EmployeeDto.class);
 	}
 
 	@Operation(summary = "Update Employee details")
@@ -71,7 +78,7 @@ public class EmployeeController {
 	@PutMapping("{id}")
 	@ResponseStatus(HttpStatus.OK)
 	public EmployeeDto update(@PathVariable("id") Integer id, @RequestBody EmployeeDto employeeDto) {
-		return employeeService.update(id, employeeDto);
+		return modelMapper.map(employeeService.update(id, modelMapper.map(employeeDto, Employee.class)),EmployeeDto.class);
 
 	}
 
@@ -82,15 +89,14 @@ public class EmployeeController {
 			@ApiResponse(responseCode = "404", description = "Employee not found") })
 	@DeleteMapping("{id}")
 	public EmployeeDto delete(@PathVariable("id") Integer id) {
-		return employeeService.delete(id);
+		return modelMapper.map(employeeService.delete(id),EmployeeDto.class);
 	}
-
 
 	@GetMapping("health/{name}")
 	@ResponseStatus(HttpStatus.OK)
 	public String healthCheck(@PathVariable("name") String name) {
-		if(name.equals("error")) {
-			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,"Internal error");
+		if (name.equals("error")) {
+			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Internal error");
 		}
 		return "hi";
 	}

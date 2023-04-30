@@ -3,12 +3,10 @@ package com.apis.service.impl;
 import java.util.List;
 import java.util.Optional;
 
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.apis.dto.EmployeeDto;
 import com.apis.model.Employee;
 import com.apis.repository.EmployeeRepository;
 import com.apis.service.EmployeeService;
@@ -19,55 +17,49 @@ public class EmployeeServiceImpl implements EmployeeService {
 	@Autowired
 	private EmployeeRepository employeeRepository;
 	
-	@Autowired
-	private ModelMapper modelMapper;
-	
 	@Override
-	public List<EmployeeDto> findByFirstName(String name) {
-		List<Employee> employees = employeeRepository.findByFirstName(name);
-		return employees.stream().map(emp -> modelMapper.map(emp, EmployeeDto.class))
-				.toList();
+	public List<Employee> findByFirstName(String name) {
+		return employeeRepository.findByFirstName(name);
 	}
 
 	@Override
-	public EmployeeDto save(EmployeeDto employeeDto) {
-		return modelMapper.map(employeeRepository.save(modelMapper.map(employeeDto, Employee.class)),
-				EmployeeDto.class);
+	public Employee save(Employee employee) {
+		return employeeRepository.save(employee);
 	}
 
 	@Override
-	public EmployeeDto update(Integer id, EmployeeDto employeeDto) {
+	public Employee update(Integer id, Employee employee) {
 		Optional<Employee> employeeObj = employeeRepository.findById(id);
 		if (employeeObj.isPresent()) {
-			Employee employee = employeeObj.get();
-			if (!employeeDto.getFirstName().isBlank())
-				employee.setFirstName(employeeDto.getFirstName());
+			Employee emp = employeeObj.get();
+			if (!employee.getFirstName().isBlank())
+			emp.setFirstName(employee.getFirstName());
 
-			if (!employeeDto.getLastName().isBlank())
-				employee.setLastName(employeeDto.getLastName());
+			if (!employee.getLastName().isBlank())
+			emp.setLastName(employee.getLastName());
 
-			if (!employeeDto.getGender().isBlank())
-				employee.setGender(employeeDto.getGender());
+			if (!employee.getGender().isBlank())
+			emp.setGender(employee.getGender());
 
-			if (null != employeeDto.getBirthDate())
-				employee.setBirthDate(employeeDto.getBirthDate());
+			if (null != employee.getBirthDate())
+			emp.setBirthDate(employee.getBirthDate());
 
-			if (null != employeeDto.getHireDate())
-				employee.setHireDate(employeeDto.getHireDate());
+			if (null != employee.getHireDate())
+			emp.setHireDate(employee.getHireDate());
 
-			return modelMapper.map(employeeRepository.save(employee), EmployeeDto.class);
+			return employeeRepository.save(emp);
 		}
 		throw new ResourceNotFoundException("No employee found with EmpNo : " + id);
 
 	}
 
 	@Override
-	public EmployeeDto delete(Integer id) {
+	public Employee delete(Integer id) {
 		Optional<Employee> emplOptional = employeeRepository.findById(id);
 		if(emplOptional.isPresent()) {
 			Employee employee = emplOptional.get();
 			employeeRepository.delete(employee);
-			return modelMapper.map(employee,EmployeeDto.class);
+			return employee;
 		}
 		throw new ResourceNotFoundException("No employee found with EmpNo : " + id);
 	}

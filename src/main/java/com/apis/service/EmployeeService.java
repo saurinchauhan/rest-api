@@ -3,16 +3,17 @@ package com.apis.service;
 import java.util.List;
 
 import com.apis.dto.EmployeeDto;
+import com.apis.model.Employee;
 
 
 public interface EmployeeService {
 
-	List<EmployeeDto> findByFirstName(String name);
+	List<Employee> findByFirstName(String name);
 	
-	EmployeeDto save(EmployeeDto employeeDto);
+	Employee save(Employee employee);
 	
-	EmployeeDto update(Integer id, EmployeeDto employeeDto);
+	Employee update(Integer id, Employee employee);
 	
-	EmployeeDto delete(Integer id);
+	Employee delete(Integer id);
 	
 }
