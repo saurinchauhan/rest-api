@@ -55,7 +55,7 @@ public class EmployeeServiceImplTest {
         // Optional<List<Employee>> empList = Optional.ofNullable(employees);
 
         when(employeeRepository.findByFirstName(anyString())).thenReturn(employees);
-        List<EmployeeDto> result = employeeServiceImpl.findByFirstName("sdad");
+        List<Employee> result = employeeServiceImpl.findByFirstName("sdad");
 
         result.forEach(System.out::println);
 
